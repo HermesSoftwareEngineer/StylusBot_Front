@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import Sidebar from '../components/utils/Sidebar';
 
 function Chat() {
 
@@ -37,33 +38,45 @@ function Chat() {
     };
 
     return (
-        <div className="flex flex-col items-center p-4">
-            <h1 className="text-2xl font-bold mb-4">Chat</h1>
-            <div className="w-[70%] p-4 mb-4">
-                {messages.map((message, index) => (
-                    <div key={index} className={`mb-2 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
-                        <span className={`inline-block px-3 py-2 rounded-lg ${message.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}> 
-                            {message.role === 'ai' ? (
-                                <ReactMarkdown>{message.text}</ReactMarkdown>
-                            ) : (
-                                message.text
-                            )}
-                        </span>
-                    </div>
-                ))}
-            </div>
-            <div className="w-[70%] flex bottom-4">
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                    className="flex-grow border border-gray-300 rounded-l-lg p-2"
-                    placeholder="Digite sua mensagem..."
-                />
-                <button onClick={handleSend} className="bg-blue-500 text-white px-4 py-2 rounded-r-lg">
-                    Enviar
-                </button>
+        <div className="flex flex-row h-screen bg-[#F5F5F5]">
+            {/* Sidebar fixa */}
+            <Sidebar className="h-full sticky top-0 bg-[#212121] text-white" />
+    
+            {/* Container do chat com rolagem independente */}
+            <div className="flex flex-col items-center p-4 w-[80%] overflow-y-auto h-full">
+                <h1 className="text-2xl font-bold mb-4 text-[#D32F2F]">Chat</h1>
+    
+                {/* Área de mensagens */}
+                <div className="w-[70%] p-4 mb-4 h-[70vh] overflow-y-auto border border-[#BDBDBD] rounded-lg bg-white shadow-lg">
+                    {messages.map((message, index) => (
+                        <div key={index} className={`mb-2 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
+                            <span className={`inline-block px-3 py-2 rounded-lg shadow-md 
+                                ${message.role === 'user' ? 'bg-[#D32F2F] text-white' : 'bg-[#E0E0E0] text-[#212121]'}`}>
+                                {message.role === 'ai' ? (
+                                    <ReactMarkdown>{message.text}</ReactMarkdown>
+                                ) : (
+                                    message.text
+                                )}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+    
+                {/* Input e botão de envio */}
+                <div className="w-[70%] flex">
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                        className="flex-grow border border-[#BDBDBD] rounded-l-lg p-2 text-black"
+                        placeholder="Digite sua mensagem..."
+                    />
+                    <button onClick={handleSend} 
+                        className="bg-[#E53935] text-white px-4 py-2 rounded-r-lg hover:bg-[#C62828] transition">
+                        Enviar
+                    </button>
+                </div>
             </div>
         </div>
     );
