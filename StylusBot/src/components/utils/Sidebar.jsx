@@ -8,7 +8,7 @@ const Sidebar = () => {
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   return (
-    <div className={`h-screen bg-[#C62828] text-white flex flex-col transition-all ${isCollapsed ? "w-16" : "w-64"} p-4`}>
+    <div className={`h-screen bg-[#212121] text-white flex flex-col transition-all ${isCollapsed ? "w-16" : "w-64"} p-4`}>
       {/* Botão de Expandir/Reduzir */}
       <button onClick={toggleSidebar} className="mb-6 flex items-center space-x-2">
         <Menu className="w-6 h-6 hover:bg-[#E53935] cursor-pointer" />
